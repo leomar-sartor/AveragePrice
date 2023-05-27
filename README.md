@@ -68,3 +68,19 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+NVM 1.1.10
+Node 16.13.2
+
+https://reactstrap.github.io/?path=/docs/home-installation--page
+https://www.youtube.com/watch?v=ceATFKyDIY0
+https://github.com/0wczar/airframe-react/blob/master/app/index.js
+https://reactstrap.github.io/?path=/story/home-installation--page
+http://dashboards.webkom.co/net-mvc/airframe/Layouts/Sidebar
+https://webkom.gitbook.io/spin/v/airframe/airframe-react/documentation-react
+
+
+
+npm install reactstrap react react-dom
+npm install --save bootstrap
