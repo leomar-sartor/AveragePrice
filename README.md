@@ -80,7 +80,8 @@ https://reactstrap.github.io/?path=/story/home-installation--page
 http://dashboards.webkom.co/net-mvc/airframe/Layouts/Sidebar
 https://webkom.gitbook.io/spin/v/airframe/airframe-react/documentation-react
 
-
+****https://mdbootstrap.com/docs/standard/
+https://calcularprecomedio.com/
 
 npm install reactstrap react react-dom
 npm install --save bootstrap
