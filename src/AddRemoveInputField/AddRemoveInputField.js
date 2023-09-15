@@ -64,20 +64,6 @@ function AddRemoveInputField() {
 
     setQtsTotal(somaQuantidade);
 
-    //Total Preço
-    let somaPreco = inputFields.reduce((acc, val) => {
-      let preco = 0;
-      if (val.preco !== "") {
-        preco = val.preco.replace(/[^0-9]/g, "") / 100;
-      }
-      return (acc += preco);
-    }, 0);
-
-    let newPrice = new Intl.NumberFormat("pt-BR", {
-      style: "currency",
-      currency: "BRL"
-    }).format(somaPreco);
-
     //Preço médio
     let somaPrecoMedio = inputFields.reduce((acc, val) => {
       let preco = 0;
