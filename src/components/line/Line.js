@@ -1,4 +1,8 @@
 import IntlCurrencyInput from "react-intl-currency-input";
+import {
+  X,
+  Plus
+} from "react-bootstrap-icons";
 
 const currencyConfig = {
   locale: "pt-BR",
@@ -19,16 +23,15 @@ export const Line = ({ qtdregistros, registro, index, remove, add, handleChange 
 
   return (
     <div className="row my-3">
-      <div className="col-1">
-        {index >= 0 &&
-          qtdregistros > 1 &&(
-            <button
-              className="btn btn-outline-danger"
-              onClick={() => remove(index)}
-            >
-              Deletar
-            </button>
-          )}
+      <div className="col-1 text-end">
+        {index >= 0 && qtdregistros > 1 && (
+          <button
+            className="btn btn-outline-danger"
+            onClick={() => remove(index)}
+          >
+            <X size={23} className="" />
+          </button>
+        )}
       </div>
 
       <div className="col-5">
@@ -58,12 +61,14 @@ export const Line = ({ qtdregistros, registro, index, remove, add, handleChange 
       </div>
 
       {index + 1 === qtdregistros && (
-        <div className=" col-sm-1">
+        <div className="col-sm-1">
           <button className="btn btn-outline-primary" onClick={add}>
-            Novo
+            <Plus size={24}  className="text-start" />
           </button>
         </div>
       )}
     </div>
   );
 };
+
+// https://www.brainstormcreative.co.uk/react-js/react-bootstrap-icons/

@@ -75,3 +75,15 @@ npm install react-intl-currency-input
 
 using version node 18.16.1
 run app: yarn start
+
+
+sample of files: https://jsfiddle.net/larrykluger/eo4dzptr/ or https://spin.atomicobject.com/2022/03/09/create-export-react-frontend/
+
+https://w3c.github.io/FileAPI/#readOperation
+
+Fazer Footer com efeito máquina de escrever com t-writer
+https://chriscavs.github.io/t-writer-demo/
+https://github.com/ChrisCavs/t-writer.js
+
+Considerar Vendas e apurar lucros e prejuizos
+Modal pra escolher nome do arquivo ao salvar.

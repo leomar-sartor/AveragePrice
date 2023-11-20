@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { FileEarmarkArrowDownFill, Paperclip, } from "react-bootstrap-icons";
+
 import "./styles.css";
 
 // Funções
@@ -11,6 +13,9 @@ import { Line } from "./components";
 import { PageTwo, PageThree, Footer } from "./pages";
 
 function Aplicacao() {
+
+  const inputRef = useRef(null);
+
   const [inputFields, setInputFields] = useState([
     {
       quantidade: "",
@@ -41,6 +46,37 @@ function Aplicacao() {
     setInputFields(list);
   };
 
+    const handleSaveData = () => {
+      console.log("Salvando Dados");
+
+      const fileData = JSON.stringify(inputFields);
+      const blob = new Blob([fileData], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.download = "precomedio.json";
+      link.href = url;
+      link.click();
+    };
+
+  const handleOpenFile = (event) => {
+    
+    const fileObj = event.target.files[0];
+    const reader = new FileReader();
+
+     reader.readAsText(fileObj);
+
+     reader.onload = (e) => {
+      const { result } = e.target;
+      const jsonFile = JSON.parse(result);
+       setInputFields(jsonFile);
+      }
+  }
+
+  const handleImportData = () => {
+    inputRef.current.click();
+  };
+
   useEffect(() => {
     const somaQuantidade = sumQuantity(inputFields);
     setQtsTotal(somaQuantidade);
@@ -61,7 +97,6 @@ function Aplicacao() {
 
           <div className="row">
             <div className="col-sm-12">
-
               {inputFields.length !== 0 &&
                 inputFields.map((data, index) => {
                   return (
@@ -77,7 +112,6 @@ function Aplicacao() {
                     </div>
                   );
                 })}
-
             </div>
           </div>
 
@@ -94,17 +128,35 @@ function Aplicacao() {
 
           <div className="col-sm-12 text-center pt-3">
             <button
-              className="btn btn-outline-success"
-              onClick={() => console.log("Salvando...")}
+              className="btn btn-outline-primary"
+              onClick={handleImportData}
             >
-              Salvar
+              <Paperclip size={35} className="pe-2" />
+              Importar
+            </button>
+
+            <input
+              ref={inputRef}
+              className="hidden"
+              multiple={false}
+              type="file"
+              accept=".json"
+              onChange={(e) => handleOpenFile(e)}
+            />
+
+            <button
+              className="btn btn-outline-success ms-2"
+              onClick={() => handleSaveData()}
+            >
+              <FileEarmarkArrowDownFill size={35} className="pe-2" />
+              Download
             </button>
           </div>
         </div>
       </div>
 
-      <PageTwo />
-      <PageThree />
+      {/* <PageTwo /> */}
+      {/* <PageThree /> */}
       <Footer />
     </div>
   );
