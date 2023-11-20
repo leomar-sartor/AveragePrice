@@ -1,9 +1,9 @@
 import './App.css';
-import AddRemoveInputField from './AddRemoveInputField/AddRemoveInputField';
+import Aplicacao from "./Aplicacao";
 
 function App() {
   return (
-    <AddRemoveInputField/>
+    <Aplicacao/>
   );
 }
 

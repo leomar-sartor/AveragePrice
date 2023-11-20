@@ -5,11 +5,19 @@
 .page-one{
     background: #f8f8f8;
     position: relative;
-    height: 100vh
+    min-height: 100vh;
+    display: flex;
+    padding-bottom: 30px;
 }   
 
 .page-two{
+    display: flex;
     background: #fff;
+}   
+
+.page-three{
+    display: flex;
+    background: #f8f8f8;
 }   
 
 .footer{
@@ -21,4 +29,6 @@
 .footer p{
     font-size: 18px;
 }   
+
+
 

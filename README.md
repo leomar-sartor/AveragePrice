@@ -71,3 +71,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 
 npm install react-intl-currency-input
+
+
+using version node 18.16.1
+run app: yarn start
