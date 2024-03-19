@@ -19,6 +19,7 @@ const currencyConfig = {
 };
 
 export const Line = ({ qtdregistros, registro, index, remove, add, handleChange }) => {
+
   const { data, corretora, operacao, quantidade, preco } = registro;
 
   return (
@@ -43,7 +44,10 @@ export const Line = ({ qtdregistros, registro, index, remove, add, handleChange 
             name="data"
             value={data}
             className="form-control"
-            onChange={handleChange}
+            // onChange={handleChange}
+            onChange={(e, val, maskedValue) => {
+              handleChange(e, index, maskedValue);
+            }}
           />
         </div>
       </div>
@@ -56,7 +60,10 @@ export const Line = ({ qtdregistros, registro, index, remove, add, handleChange 
             className="form-select"
             aria-label="Default select example"
             value={corretora}
-            onChange={handleChange}
+            // onChange={handleChange}
+            onChange={(e, val, maskedValue) => {
+              handleChange(e, index, maskedValue);
+            }}
           >
             <option value="1">XP</option>
             <option value="2">CLEAR</option>
@@ -72,7 +79,10 @@ export const Line = ({ qtdregistros, registro, index, remove, add, handleChange 
             className="form-select"
             aria-label="Default select example"
             value={operacao}
-            onChange={handleChange}
+            // onChange={handleChange}
+            onChange={(e, val, maskedValue) => {
+              handleChange(e, index, maskedValue);
+            }}
           >
             <option value="1">C</option>
             <option value="2">V</option>
@@ -89,7 +99,10 @@ export const Line = ({ qtdregistros, registro, index, remove, add, handleChange 
             name="quantidade"
             className="form-control"
             placeholder="Quantidade"
-            onChange={handleChange}
+            // onChange={handleChange}
+            onChange={(e, val, maskedValue) => {
+              handleChange(e, index, maskedValue);
+            }}
           />
         </div>
       </div>
@@ -112,9 +125,9 @@ export const Line = ({ qtdregistros, registro, index, remove, add, handleChange 
             currency="BRL"
             config={currencyConfig}
             onChange={(e, val, maskedValue) => {
-              console.log("LINE");
-              console.log(val); // value without mask (ex: 1234.56)
-              console.log(maskedValue, typeof maskedValue); // masked value (ex: R$1234,56)
+              //console.log("LINE");
+              //console.log(val); // value without mask (ex: 1234.56)
+              //console.log(maskedValue, typeof maskedValue); // masked value (ex: R$1234,56)
               handleChange(e, index, maskedValue);
             }}
           />
