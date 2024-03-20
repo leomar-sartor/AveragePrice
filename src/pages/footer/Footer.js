@@ -4,11 +4,11 @@ export const Footer = () => {
 
   return (
     <div className="footer text-center">
-      <p className="pt-4">
+      <p className="pt-3">
         <Typewriter
           onInit={(typewriter) => {
             typewriter
-              .typeString("Desenvolvido por Leomar Vaz Sartor")
+              .typeString("Powered by Leomar Sartor")
               // .callFunction(() => {
               //   console.log("String typed out!");
               // })

@@ -1,7 +1,7 @@
 import "./styles.css";
 
 //Pages
-import { PageOne, Footer } from "./pages";
+import { PageOne, PageTwo, PageThree, Footer } from "./pages";
 
 function Aplicacao() {
 
@@ -10,11 +10,11 @@ function Aplicacao() {
 
       <PageOne/>
 
-      {/* <PageTwo /> */}
+      {/* <PageTwo />
 
-      {/* <PageThree /> */}
+      <PageThree /> */}
 
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }

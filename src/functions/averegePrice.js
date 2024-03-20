@@ -1,11 +1,11 @@
 
-export const averagePrice = (fields, saldoQuantidade) => {
+export const averagePrice = (fields, saldoQuantidade, calcularApuracao = false) => {
 
   var saldoCotas = 0;
   var precoMedio = 0;
   var totalInvestido = 0;
 
-  fields.forEach(function(field, indice, array){
+  fields.forEach(function (field, indice, array) {
     //console.log("============================ ARRAY ", array);
     //console.log("============================ START FIELD " +  indice + " => ", field);
 
@@ -15,55 +15,58 @@ export const averagePrice = (fields, saldoQuantidade) => {
     let taxasOperacao = 0;
     let totalOperacao = 0;
 
-    if (field.apuracao !== "") 
-       field.apuracao = parseInt(field.apuracao);
+    if (field.apuracao !== "" && calcularApuracao)
+      field.apuracao = parseInt(field.apuracao);
 
-    if (field.quantidade !== "") 
+    if (field.quantidade !== "")
       quantidadeOperacao = parseInt(field.quantidade);
 
-    if (field.preco !== ""){
+    if (field.preco !== "") {
       precoOperacao = field.preco.replace(/[^0-9]/g, "") / 100;
     }
 
-    if (field.taxas !== ""){
+    if (field.taxas !== "") {
       taxasOperacao = field.taxas.replace(/[^0-9]/g, "") / 100;
     }
-      
-    if(field.operacao === "1"){
+
+    if (field.operacao === "1") {
       totalOperacao = (precoOperacao * quantidadeOperacao) + taxasOperacao;
 
       saldoCotas += quantidadeOperacao;
 
-      if(primeiraEntrada){
+      if (primeiraEntrada) {
         totalInvestido = totalOperacao;
-        precoMedio = totalInvestido/saldoCotas;
-      }else{
+        precoMedio = totalInvestido / saldoCotas;
+      } else {
         totalInvestido = (totalInvestido + totalOperacao);
-        precoMedio = totalInvestido/saldoCotas;
+        precoMedio = totalInvestido / saldoCotas;
       }
     }
 
-    if(field.operacao === "2" && !primeiraEntrada){
+    if (field.operacao === "2" && !primeiraEntrada) {
       totalOperacao = (precoOperacao * quantidadeOperacao) - taxasOperacao;
       saldoCotas -= quantidadeOperacao;
       totalInvestido = saldoCotas * precoMedio;
       let lucro = precoOperacao > precoMedio;
 
-      if(lucro){
-        field.apuracao = (totalOperacao / quantidadeOperacao - precoMedio) * quantidadeOperacao;
+      if (calcularApuracao) {
+        if (lucro) {
+          field.apuracao = (totalOperacao / quantidadeOperacao - precoMedio) * quantidadeOperacao;
+        }
+        else {
+          field.apuracao = (totalOperacao / quantidadeOperacao - precoMedio) * quantidadeOperacao;
+        }
       }
-      else{
-        field.apuracao = (totalOperacao / quantidadeOperacao - precoMedio) * quantidadeOperacao;
-      }
+
     }
 
     //console.log("============================ END FLD => " +  indice, field);
   });
 
-  if (Object.is(precoMedio, Number.NaN)){
+  if (Object.is(precoMedio, Number.NaN)) {
     precoMedio = 0;
-  } 
-    
+  }
+
   let newPriceMiddle = new Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "BRL"
