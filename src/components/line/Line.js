@@ -20,13 +20,24 @@ const currencyConfig = {
 
 export const Line = ({ qtdregistros, registro, index, remove, add, handleChange }) => {
 
-  const { data, corretora, operacao, quantidade, preco } = registro;
+  const { data, operacao, quantidade, preco, taxas, apuracao } = registro;
+
+  let apuracaocomLucro = apuracao > 0;
+  let apuracaocomPrejuizo = apuracao < 0;
+
+  let cor = "";
+  if(apuracaocomLucro)
+    cor = "lightgreen";
+  if(apuracaocomPrejuizo)
+    cor = "lightcoral";
+
+  const firsLine = index === 0;
 
   return (
-    <div className="row my-3">
+    <div className="row my-3" key={index}>
       {/* REMOVER */}
       <div className="col-1 text-end">
-        {index >= 0 && qtdregistros > 1 && (
+        {!firsLine && qtdregistros > 1 && (
           <button
             className="btn btn-outline-danger"
             onClick={() => remove(index)}
@@ -44,30 +55,10 @@ export const Line = ({ qtdregistros, registro, index, remove, add, handleChange 
             name="data"
             value={data}
             className="form-control"
-            // onChange={handleChange}
             onChange={(e, val, maskedValue) => {
               handleChange(e, index, maskedValue);
             }}
           />
-        </div>
-      </div>
-
-      {/* CORRETORA */}
-      <div className="col-2">
-        <div className="form-group">
-          <select
-            name="corretora"
-            className="form-select"
-            aria-label="Default select example"
-            value={corretora}
-            // onChange={handleChange}
-            onChange={(e, val, maskedValue) => {
-              handleChange(e, index, maskedValue);
-            }}
-          >
-            <option value="1">XP</option>
-            <option value="2">CLEAR</option>
-          </select>
         </div>
       </div>
 
@@ -79,7 +70,7 @@ export const Line = ({ qtdregistros, registro, index, remove, add, handleChange 
             className="form-select"
             aria-label="Default select example"
             value={operacao}
-            // onChange={handleChange}
+            disabled={firsLine}
             onChange={(e, val, maskedValue) => {
               handleChange(e, index, maskedValue);
             }}
@@ -91,15 +82,16 @@ export const Line = ({ qtdregistros, registro, index, remove, add, handleChange 
       </div>
 
       {/* QUANTIDADE */}
-      <div className="col-2">
+      <div className="col-1" style={{
+        minWidth: 150,
+      }}>
         <div className="form-group">
           <input
             type="number"
             value={quantidade}
             name="quantidade"
             className="form-control"
-            placeholder="Quantidade"
-            // onChange={handleChange}
+            placeholder="0"
             onChange={(e, val, maskedValue) => {
               handleChange(e, index, maskedValue);
             }}
@@ -108,28 +100,54 @@ export const Line = ({ qtdregistros, registro, index, remove, add, handleChange 
       </div>
 
       {/* PREÇO */}
-      <div className="col-3">
+      <div className="col-2">
         <div className="form-group">
           <IntlCurrencyInput
             className="form-control"
-            //Arrumar - faz bug com parseFloat
-            //Seleciona o campo inteiro e digita
-            //duas vez 1 (11 por exemplo)
-            //acaba por zerar o valor
-            //value={parseFloat(preco)}
-            //Normal apresenta warning: `IntlCurrencyInput`, expected `number`.
             value={preco}
-            // value={105.05} - TEM QUE SER ASSIM O PREÇO
-            //Transformar o parametro de strin pra decimal
+            //value={parseFloat(preco)}
             name="preco"
             currency="BRL"
             config={currencyConfig}
             onChange={(e, val, maskedValue) => {
-              //console.log("LINE");
-              //console.log(val); // value without mask (ex: 1234.56)
-              //console.log(maskedValue, typeof maskedValue); // masked value (ex: R$1234,56)
               handleChange(e, index, maskedValue);
             }}
+          />
+        </div>
+      </div>
+
+      {/* TAXA */}
+      <div className="col-2">
+        <div className="form-group">
+          <IntlCurrencyInput
+            className="form-control"
+            value={taxas}
+            //value={parseFloat(taxas)}
+            name="taxas"
+            currency="BRL"
+            config={currencyConfig}
+            onChange={(e, val, maskedValue) => {
+              handleChange(e, index, maskedValue);
+            }}
+          />
+        </div>
+      </div>
+
+      {/* APURAÇÃO */}
+      <div className="col-1" style={{
+        minWidth: 135,
+      }}>
+        <div className="form-group"
+        >
+          <IntlCurrencyInput
+            className="form-control readonly"
+            style={{ backgroundColor: cor }}
+            value={apuracao}
+            //value={parseFloat(apuracao)}
+            name="apuracao"
+            disabled={true}
+            currency="BRL"
+            config={currencyConfig}
           />
         </div>
       </div>
@@ -145,5 +163,3 @@ export const Line = ({ qtdregistros, registro, index, remove, add, handleChange 
     </div>
   );
 };
-
-// https://www.brainstormcreative.co.uk/react-js/react-bootstrap-icons/

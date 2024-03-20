@@ -9,13 +9,7 @@ import { Line } from "../../components";
 
 const today = () => {
   var showdate = new Date();
-  var format =
-    showdate.getFullYear() +
-    "-" +
-    (showdate.getMonth() + 1) +
-    "-" +
-    showdate.getDate();
-  return format;
+  return showdate.getFullYear() + "-" + (showdate.getMonth() + 1) + "-" + showdate.getDate();
 };
 
 export const PageOne = () => {
@@ -25,10 +19,13 @@ export const PageOne = () => {
   const [inputFields, setInputFields] = useState([
     {
       data: today(),
-      corretora: "1",
       operacao: "1",
       quantidade: "",
-      preco: ""
+      saldoCotas: "",
+      preco: "",
+      taxas: "",
+      totalInvestido: "",
+      apuracao: ""
     }
   ]);
 
@@ -44,21 +41,23 @@ export const PageOne = () => {
 
   const addInputField = (
     date = today(),
-    corretora = "1",
     op = "1",
     qtd = "",
-    price = ""
+    price = "",
+    rate = "",
+    totalInvested = "",
+    apuration = "",
   ) => {
-    console.log("ADD NEW LINE");
-
     setInputFields([
       ...inputFields,
       {
         data: date,
-        corretora: corretora,
         operacao: op,
         quantidade: qtd,
-        preco: price
+        preco: price,
+        taxas: rate,
+        totalInvestido: totalInvested,
+        apuracao: apuration,
       }
     ]);
   };
@@ -71,27 +70,17 @@ export const PageOne = () => {
   };
 
   const handleChange = (event, index, mascara) => {
-    console.log("Change Event", event.target);
-    console.log("Change Index", index);
-    console.log("Change maskedValue", mascara);
 
     const { name, value } = event.target;
-
-    console.log("Change Name", name);
-    console.log("Change Value", value);
 
     const list = [...inputFields];
 
     list[index][name] = value;
 
-    console.log("Change List", JSON.stringify(list));
-
     setInputFields(list);
   };
 
   const handleSaveData = () => {
-    console.log("Salvando Dados");
-
     const fileData = JSON.stringify(inputFields);
     const blob = new Blob([fileData], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
@@ -121,7 +110,7 @@ export const PageOne = () => {
 
   return (
       <div className="page-one">
-        <div className="container">
+        <div className="container-fluid">
           {/* TITULO */}
           <div className="row text-center pt-2">
             <div className="col-sm-4 offset-sm-4 text-break">
@@ -135,18 +124,51 @@ export const PageOne = () => {
               {inputFields.length !== 0 &&
                 inputFields.map((data, index) => {
                   return (
-                    <div key={index}>
-                      <Line
-                        qtdregistros={inputFields.length}
-                        registro={data}
-                        index={index}
-                        remove={() => removeInputField(index)}
-                        add={() => addInputField()}
-                        handleChange={(e, index, mascara) =>
-                          handleChange(e, index, mascara)
-                        }
-                      />
-                    </div>
+                      <div key={index.toString()}>
+                        <div>
+                          {index === 0 && (
+                            <div className="row my-3">
+                            <div className="col-1">
+                            </div>
+                            <div className="col-2">
+                              Data
+                            </div>
+                            <div className="col-1">
+                              Operação
+                            </div>
+                            <div className="col-1" style={{
+                              minWidth: 150,
+                            }}>
+                              Quantidade
+                            </div>
+                            <div className="col-2">
+                              Preço
+                            </div>
+                            <div className="col-2">
+                              Taxas
+                            </div>
+                            <div className="col-1">
+                              Apuração
+                            </div>
+                            <div className="col-1">
+                            </div>
+                          </div>
+
+                          )}
+                        </div>
+                        <div>
+                          <Line
+                            qtdregistros={inputFields.length}
+                            registro={data}
+                            index={index}
+                            remove={() => removeInputField(index)}
+                            add={() => addInputField()}
+                            handleChange={(e, index, mascara) =>
+                              handleChange(e, index, mascara)
+                            }
+                          />
+                        </div>
+                      </div>
                   );
                 })}
             </div>
@@ -155,7 +177,7 @@ export const PageOne = () => {
           {/* DADOS */}
           <div className="row text-center">
             <div className="col-sm-4 offset-sm-4 text-break">
-              Quantidade: {qtdTotal}
+              Saldo Cotas: {qtdTotal}
             </div>
           </div>
           <div className="row text-center">

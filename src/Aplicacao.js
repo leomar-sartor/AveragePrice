@@ -8,7 +8,7 @@ function Aplicacao() {
   return (
     <div className="page">
 
-      <PageOne />
+      <PageOne/>
 
       {/* <PageTwo /> */}
 
